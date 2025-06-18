@@ -794,3 +794,132 @@ a:hover .tooltip,
     left: 1rem;
   }
 }
+
+
+/* Existing CSS (unchanged above) */
+/* ... your existing CSS ... */
+
+/* Pagination Arrows Styling */
+.pagination-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  color: var(--main-color);
+  cursor: pointer;
+  z-index: 9999;
+  user-select: none;
+  background: rgba(23, 31, 43, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  display: none; /* hidden by default, JS will toggle */
+}
+
+.pagination-arrow:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  transform: translateY(-50%) scale(1.15);
+}
+
+.right-arrow {
+  right: 2rem;
+}
+
+.left-arrow {
+  left: 2rem;
+}
+
+/* Responsive adjustment for smaller screens, optional */
+@media (max-width: 600px) {
+  .pagination-arrow {
+    font-size: 3rem;
+    padding: 0.4rem 0.8rem;
+    /* Force display on mobile if JS toggles visibility */
+    display: block !important;
+  }
+  .right-arrow {
+    right: 1rem; /* Keep on right */
+    left: auto !important; /* Ensure no left conflict */
+  }
+  .left-arrow {
+    left: 1rem; /* Keep on left */
+    right: auto !important; /* Ensure no right conflict */
+  }
+  /* Remove the middle shade if any by hiding or adjusting */
+  /* If shade is a separate element, would need its selector to fix */
+}
+
+/* Fix image top cut and icon overlapping nav on phones */
+@media (max-width: 600px) {
+  /* Allow vertical scroll if content overflows */
+  body {
+    overflow-y: auto;
+  }
+  /* Adjust image-box sizing so image is fully visible */
+  .img-box {
+    width: 90vw !important;
+    height: auto !important;
+    max-height: calc(100vw * 0.9);
+    position: relative;
+    border-radius: 50%;
+    margin: 1rem auto;
+    box-shadow: 0 0 3rem var(--main-color);
+  }
+  .img-box img {
+    position: relative !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 50%;
+  }
+  /* Ensure icons and buttons do not go behind the nav or overlap */
+  .nav {
+    z-index: 10000 !important;
+  }
+  /* Add bottom padding to container or main to avoid overlap with nav */
+  .container {
+    padding-bottom: 6rem;
+  }
+  /* Reduce footer or other large bottom paddings on smaller devices */
+  .resume,
+  .portfolio,
+  .contact {
+    padding-bottom: 8rem !important;
+  }
+}
+
+/* Specific fix for device approx 170mm height (about 670px) and 77mm width (about 320px) */
+/* Assuming 96dpi, 1 inch = 96px, 170mm ≈ 6.7 inches ≈ 643px height */
+/* 77mm ≈ 3 inches ≈ 288px width */
+/* So max-width: 320px / max-height ~670px for targeting that phone */
+@media (max-width: 320px) and (max-height: 670px) {
+  html {
+    font-size: 45% !important; /* slightly smaller font scaling */
+  }
+  .img-box {
+    width: 85vw !important;
+    height: 85vw !important;
+  }
+  .home-info h1 {
+    font-size: 4.5rem !important;
+  }
+  .nav {
+    width: 100% !important;
+    padding: 1.2rem 0 !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+  }
+  .pagination-arrow {
+    font-size: 2.5rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+}
+
+/* Additional fix: prevent overlapping of pagination arrows with nav bar on all small screens */
+@media (max-width: 768px) {
+  .pagination-arrow {
+    top: calc(50% + 20px);
+  }
+}
