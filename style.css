@@ -46,7 +46,6 @@ html {
 
 body {
   color: var(--white-color);
-  /* Enable scrolling on mobile */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -55,16 +54,17 @@ p {
   font-size: 1.6rem;
 }
 
+/* Safe area bottom padding added for nav */
 .nav {
   position: fixed;
-  bottom: 2rem;
+  bottom: calc(2rem + env(safe-area-inset-bottom, 0));
   left: 50%;
   transform: translateX(-50%);
   width: 40rem;
-  padding: 2rem 0;
+  padding: 2rem 0 calc(2rem + env(safe-area-inset-bottom, 0));
   background: var(--nav-bg-color);
   border-radius: 5rem;
-  z-index: 100;
+  z-index: 110;
   animation: animate-nav 1s ease-in-out backwards;
   animation-delay: 4s;
 }
@@ -124,9 +124,10 @@ a:hover .tooltip,
 
 .container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   perspective: 1500px;
   perspective-origin: 50%;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0));
 }
 
 .box {
@@ -157,6 +158,7 @@ a:hover .tooltip,
   background: var(--bg-color);
   padding: 0 10%;
   backface-visibility: hidden;
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0));
 }
 
 .section:nth-child(even) {
@@ -219,6 +221,7 @@ a:hover .tooltip,
   align-items: center;
   flex-wrap: wrap;
   gap: 1.6rem;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0) + 1rem);
 }
 
 .btn {
@@ -246,6 +249,10 @@ a:hover .tooltip,
   display: flex;
   gap: 1.2rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 101;
+  margin-bottom: env(safe-area-inset-bottom, 1rem);
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
 }
 
 /* Make sure social icons don't wrap strangely on small screens */
@@ -272,8 +279,12 @@ a:hover .tooltip,
 
 .img-box {
   position: relative;
-  width: 32vw;
-  height: 32vw;
+  max-height: 50vh;
+  max-width: 50vw;
+  min-width: 180px;
+  min-height: 180px;
+  height: clamp(180px, 35vh, 320px);
+  width: clamp(180px, 35vw, 320px);
   background: linear-gradient(var(--bg-color), var(--main-color));
   border-radius: 50%;
   border: 0.5rem solid var(--main-color);
@@ -282,8 +293,6 @@ a:hover .tooltip,
   justify-content: center;
   overflow: hidden;
   transition: 1s;
-  min-width: 180px;
-  min-height: 180px;
 }
 
 .img-box.home-img:hover {
@@ -654,8 +663,8 @@ a:hover .tooltip,
   padding: 0.5rem 1rem;
   border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  display: none; /* hidden by default, JS will toggle */
-  box-sizing: content-box;
+  display: none;
+  box-sizing: border-box;
 }
 
 .pagination-arrow:hover {
@@ -679,11 +688,9 @@ a:hover .tooltip,
   .pagination-arrow {
     font-size: 3rem;
     padding: 0.4rem 0.8rem;
-    /* Ensure right arrow stays right, left arrow stays left, prevent overlap */
     min-width: 44px;
     min-height: 44px;
   }
-  /* Explicitly position right-arrow on right and left-arrow on left for mobile */
   .right-arrow {
     right: 1.5rem;
     left: auto;
@@ -691,6 +698,22 @@ a:hover .tooltip,
   .left-arrow {
     left: 1.5rem;
     right: auto;
+  }
+}
+
+/* Further small mobile adjustment */
+@media (max-width: 360px) {
+  .pagination-arrow {
+    font-size: 2.8rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 36px;
+    min-height: 36px;
+  }
+  .right-arrow {
+    right: min(1rem, calc(100vw - 40px));
+  }
+  .left-arrow {
+    left: min(1rem, calc(100vw - 40px));
   }
 }
 
@@ -740,7 +763,7 @@ a:hover .tooltip,
   }
 
   .nav {
-    bottom: 0;
+    bottom: calc(0 + env(safe-area-inset-bottom, 0));
   }
 
   .home,
@@ -782,5 +805,27 @@ a:hover .tooltip,
   .tab-list h3 {
     font-size: 2.3rem;
   }
+}
+
+/* Media Queries for tall aspect ratios and heights */
+@media (min-height: 800px), (min-aspect-ratio: 9/18) {
+  .img-box {
+    height: clamp(220px, 40vh, 360px);
+    width: clamp(220px, 40vw, 360px);
+  }
+  .home-info .desc {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+  }
+  .home-info h1 {
+    font-size: clamp(4rem, 6vw, 5.5rem);
+  }
+  .btn-sci {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0) + 2rem);
+  }
+}
+
+/* Ensure no nav overlap on newest devices */
+.section {
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0));
 }
 
