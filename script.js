@@ -12,23 +12,20 @@ const paginationRight = document.getElementById('paginationRight');
 const paginationLeft = document.getElementById('paginationLeft');
 
 // Duration constants (in ms)
-const INITIAL_DELAY_MS = 4000; // Initial 4 seconds delay on page load
-const CUBE_ROTATION_DURATION_MS = 2000; // Cube rotation animation duration
+const INITIAL_DELAY_MS = 4000;      // Initial 4 seconds delay on page load
+const CUBE_ROTATION_DURATION_MS = 2000;  // Cube rotation animation duration
 
 // Function to update pagination arrow visibility based on active section
 function updatePaginationArrows() {
   const activeSection = document.querySelector('.section.active');
-
-  if (activeSection === sections[0]) {
-    // Home section
+  
+  if (activeSection === sections[0]) { // Home section
     paginationRight.style.display = 'block';
     paginationLeft.style.display = 'none';
-  } else if (activeSection === sections[4]) {
-    // Contact section
+  } else if (activeSection === sections[4]) { // Contact section
     paginationRight.style.display = 'none';
     paginationLeft.style.display = 'block';
-  } else {
-    // Other sections: hide both arrows
+  } else { // Other sections: hide both arrows
     paginationRight.style.display = 'none';
     paginationLeft.style.display = 'none';
   }
@@ -65,10 +62,9 @@ navs.forEach((nav, idx) => {
     document.querySelector('.section.active').classList.remove('active');
     sections[idx].classList.add('active');
 
-    // Manage contact section style action-contact based on active
     const array = Array.from(sections);
     const arrSecs = array.slice(1, -1);
-    arrSecs.forEach((arrSec) => {
+    arrSecs.forEach(arrSec => {
       if (arrSec.classList.contains('active')) {
         sections[4].classList.add('action-contact');
       }
@@ -83,7 +79,7 @@ navs.forEach((nav, idx) => {
   });
 });
 
-// Resume tabs handling
+// Resume tabs handling (unchanged)
 resumeLists.forEach((list, idx) => {
   list.addEventListener('click', () => {
     document.querySelector('.resume-list.active').classList.remove('active');
@@ -94,7 +90,7 @@ resumeLists.forEach((list, idx) => {
   });
 });
 
-// Portfolio tabs handling
+// Portfolio tabs handling (unchanged)
 portfolioLists.forEach((list, idx) => {
   list.addEventListener('click', () => {
     document.querySelector('.portfolio-list.active').classList.remove('active');
@@ -126,7 +122,7 @@ document.getElementById('goToContact').addEventListener('click', function (e) {
 });
 
 // Pagination arrow: go from Home to Contact
-paginationRight.addEventListener('click', (e) => {
+paginationRight.addEventListener('click', e => {
   e.preventDefault();
 
   navs[0].classList.remove('active');
@@ -144,7 +140,7 @@ paginationRight.addEventListener('click', (e) => {
 });
 
 // Pagination arrow: go from Contact to Home
-paginationLeft.addEventListener('click', (e) => {
+paginationLeft.addEventListener('click', e => {
   e.preventDefault();
 
   navs[4].classList.remove('active');
@@ -161,8 +157,7 @@ paginationLeft.addEventListener('click', (e) => {
   delayedArrowUpdate();
 });
 
-// Hide Contact section on page reload with delay
+// Hide Contact section on page reload with delay (unchanged)
 setTimeout(() => {
   sections[4].classList.remove('active');
 }, 1500);
-
