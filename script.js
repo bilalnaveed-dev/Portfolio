@@ -219,3 +219,24 @@ document.getElementById('contactForm').addEventListener('submit', async function
         }, 5000);
     }
 });
+
+// Tooltip handling for touch devices
+navs.forEach(nav => {
+  nav.addEventListener('touchstart', function (e) {
+    navs.forEach(n => n.classList.remove('tooltip-active'));
+    this.classList.add('tooltip-active');
+  });
+
+  nav.addEventListener('touchend', function () {
+    setTimeout(() => {
+      this.classList.remove('tooltip-active');
+    }, 300);
+  });
+});
+
+// Hide tooltip when touching outside nav
+document.addEventListener('touchstart', e => {
+  if (!e.target.closest('.nav-list li')) {
+    navs.forEach(nav => nav.classList.remove('tooltip-active'));
+  }
+});

@@ -230,9 +230,9 @@ a:hover .tooltip,
 }
 
 .btn {
-  display: flex; /* Changed from inline-flex to flex for consistent centering */
-  align-items: center; /* Vertically center text */
-  justify-content: center; /* Horizontally center text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1.2rem 3rem;
   background: var(--main-color);
   border-radius: 5rem;
@@ -331,6 +331,48 @@ a:hover .tooltip,
 
 .about-info .btn {
   padding: 1.2rem 4rem;
+}
+
+/* About section View More button */
+.about-info .btn {
+  /* Reduce width while keeping it proportional */
+  width: auto;
+  min-width: 150px;
+  padding: 1.2rem 2.5rem;
+  
+  /* Center alignment for all screens */
+  display: inline-flex;
+  justify-content: center;
+  margin: 1rem auto 0;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .about-info .btn {
+    min-width: 120px;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    margin: 1.5rem auto 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-info .btn {
+    min-width: 100px;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* Center align about content on mobile */
+@media screen and (max-width: 768px) {
+  .about-info {
+    text-align: center;
+  }
+  
+  .about-info .title {
+    text-align: center !important;
+  }
 }
 
 .resume,
@@ -682,44 +724,87 @@ a:hover .tooltip,
   outline: none;
 }
 
-/* Disable hover and reset states for touch devices */
+/* Touch device handling */
 @media (hover: none) {
-  .pagination-arrow:hover,
-  .pagination-arrow:active,
-  .pagination-arrow:focus {
-    background: rgba(23, 31, 43, 0.7);
-    color: var(--main-color);
-    transform: translateY(-50%) scale(1);
-    outline: none;
+  .nav-list li:hover .tooltip,
+  .nav-list li:active .tooltip,
+  .nav-list li:focus .tooltip {
+    visibility: hidden;
+    opacity: 0;
   }
+
+  .nav-list li.tooltip-active .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
   .nav-list li:hover,
   .nav-list li:active,
   .nav-list li:focus {
     color: var(--main-color);
+    outline: none;
+  }
+
+  .pagination-arrow {
+    background: rgba(23, 31, 43, 0.7);
+    color: var(--main-color);
+  }
+
+  .pagination-arrow:active {
+    background: var(--main-color);
+    color: var(--bg-color);
+    transform: translateY(-50%) scale(1);
+    outline: none;
+  }
+
+  .pagination-arrow:focus {
     outline: none;
   }
 }
 
 /* Specific fix for iPhone XR (375px) and iPhone 12 Pro (390px) */
 @media screen and (max-width: 390px) and (min-width: 375px) {
-  .pagination-arrow,
   .nav-list li {
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
-  .pagination-arrow:hover,
-  .pagination-arrow:active,
-  .pagination-arrow:focus {
-    background: rgba(23, 31, 43, 0.7);
-    color: var(--main-color);
-    transform: translateY(-50%) scale(1);
-    outline: none;
+
+  .nav-list li:hover .tooltip,
+  .nav-list li:active .tooltip,
+  .nav-list li:focus .tooltip {
+    visibility: hidden;
+    opacity: 0;
   }
+
+  .nav-list li.tooltip-active .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
   .nav-list li:hover,
   .nav-list li:active,
   .nav-list li:focus {
     color: var(--main-color);
+    outline: none;
+  }
+
+  .pagination-arrow {
+    background: rgba(23, 31, 43, 0.7);
+    color: var(--main-color);
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .pagination-arrow:active {
+    background: var(--main-color);
+    color: var(--bg-color);
+    transform: translateY(-50%) scale(1);
+    outline: none;
+  }
+
+  .pagination-arrow:focus {
     outline: none;
   }
 }
