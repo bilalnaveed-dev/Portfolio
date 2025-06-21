@@ -46,7 +46,6 @@ html {
 
 body {
   color: var(--white-color);
-  /* Enable scrolling on mobile */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -144,7 +143,6 @@ a:hover .tooltip,
   0% {
     transform: scale(0) rotateY(-360deg);
   }
-
   100% {
     transform: scale(1) rotateY(0deg);
   }
@@ -248,7 +246,6 @@ a:hover .tooltip,
   flex-wrap: wrap;
 }
 
-/* Make sure social icons don't wrap strangely on small screens */
 .home-info .btn-sci .sci a {
   position: relative;
   display: inline-flex;
@@ -385,7 +382,9 @@ a:hover .tooltip,
   overflow-x: hidden;
   visibility: hidden;
   opacity: 0;
-  transform: scale(0.8);
+  transform: HtmlOutput {
+    transform: scale(0.8);
+  }
 }
 
 .tab-grid.resume-box.active,
@@ -561,6 +560,7 @@ a:hover .tooltip,
   margin-left: -0.3rem;
   transition: 0.3s;
 }
+
 .portfolio-item:hover .service-icon .icon {
   color: var(--main-color);
 }
@@ -640,7 +640,6 @@ a:hover .tooltip,
   cursor: pointer;
 }
 
-/* Pagination Arrows Styling */
 .pagination-arrow {
   position: fixed;
   top: 50%;
@@ -654,7 +653,7 @@ a:hover .tooltip,
   padding: 0.5rem 1rem;
   border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  display: none; /* hidden by default, JS will toggle */
+  display: none;
   box-sizing: content-box;
 }
 
@@ -674,27 +673,6 @@ a:hover .tooltip,
   right: auto;
 }
 
-/* Responsive adjustment for smaller screens */
-@media (max-width: 600px) {
-  .pagination-arrow {
-    font-size: 3rem;
-    padding: 0.4rem 0.8rem;
-    /* Ensure right arrow stays right, left arrow stays left, prevent overlap */
-    min-width: 44px;
-    min-height: 44px;
-  }
-  /* Explicitly position right-arrow on right and left-arrow on left for mobile */
-  .right-arrow {
-    right: 1.5rem;
-    left: auto;
-  }
-  .left-arrow {
-    left: 1.5rem;
-    right: auto;
-  }
-}
-
-/* Scrollbar for tab grids and overflow areas */
 .tab-grid,
 .contact-wrapper {
   scrollbar-width: thin;
@@ -714,73 +692,231 @@ a:hover .tooltip,
   background-clip: content-box;
 }
 
-/* Responsive fixes for social icons container */
-@media screen and (max-width: 400px) {
-  .home-info .btn-sci {
-    flex-direction: column;
-    align-items: center;
-  }
-  .home-info .btn-sci .sci {
-    margin-left: 0;
-    margin-top: 1rem;
-    justify-content: center;
-  }
-  .home-info .btn-sci .sci a {
-    margin: 0 0.5rem;
-  }
-  .btn {
-    min-width: auto;
-  }
-}
-
-/* Mobile layout adjustments */
+/* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
   html {
-    font-size: 50%;
+    font-size: 55%;
   }
 
   .nav {
-    bottom: 0;
+    bottom: 0.5rem;
+    width: 95%;
+    padding: 1rem 0;
+  }
+
+  .nav-list li {
+    font-size: 2.2rem;
+  }
+
+  .tooltip {
+    font-size: 1.2rem;
+    top: -3rem;
   }
 
   .home,
   .about {
     flex-direction: column-reverse;
     justify-content: center;
-    gap: 2rem;
-    padding-bottom: 6rem;
+    gap: 1.5rem;
+    padding-bottom: 5rem;
   }
 
-  .about {
-    flex-direction: column;
+  .home-info h1 {
+    font-size: 3.8rem;
+  }
+
+  .home-info h3 {
+    font-size: 2rem;
+  }
+
+  .home-info .btn-sci {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .home-info .btn-sci .btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.3rem;
+    min-height: 34px;
+  }
+
+  .home-info .btn-sci .sci {
+    margin-left: 0;
+    margin-top: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .home-info .btn-sci .sci a {
+    margin: 0 0.3rem;
+    padding: 0.5 무엇
+    min-width: 34px;
+    min-height: 34px;
+    font-size: 1.6rem;
   }
 
   .img-box {
-    width: 35rem;
-    height: 35rem;
+    width: 30rem;
+    height: 30rem;
     min-width: 140px;
     min-height: 140px;
+    border: 0.4rem solid var(--main-color);
+    box-shadow: 0 0 1.5rem var(--main-color);
+  }
+
+  .img-box.home-img:hover {
+    box-shadow: 0 0 6rem var(--main-color);
+  }
+
+  .img-box img {
+    top: 2.5rem;
+    width: 90%;
+  }
+
+  .img-box.about-img {
+    box-shadow: 0 0 1.5rem var(--main-color), inset 0 0 0.8rem var(--main-color);
   }
 
   .resume,
   .portfolio {
-    padding-bottom: 25rem;
+    padding-bottom: 22rem;
   }
 
   .contact {
-    padding-bottom: 16rem;
+    padding-bottom: 14rem;
+  }
+
+  .tab-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
+
+  .resume-box.skills {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   }
 }
 
-/* Smaller small screen fixes */
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 50%;
+  }
+
+  .home-info .btn-sci {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .home-info .btn-sci .btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.3rem;
+    min-height: 34px;
+  }
+
+  .home-info .btn-sci .sci {
+    margin-left: 0;
+    margin-top: 0.6rem;
+    justify-content: center;
+  }
+
+  .home-info .btn-sci .sci a {
+    margin: 0 0.3rem;
+    padding: 0.5rem;
+    min-width: 34px;
+    min-height: 34px;
+    font-size: 1.6rem;
+  }
+
   .img-box {
     width: 25rem;
     height: 25rem;
   }
 
   .tab-list h3 {
-    font-size: 2.3rem;
+    font-size: 2rem;
+  }
+
+  .contact-form {
+    width: 95%;
+  }
+
+  .contact-form .field-box input,
+  .contact-form .field-box textarea {
+    flex: 1 1 100%;
+    padding: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .contact-form .field-box textarea {
+    height: 15rem;
   }
 }
 
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 48%;
+  }
+
+  .nav {
+    width: 98%;
+    padding: 0.8rem 0;
+  }
+
+  .nav-list li {
+    font-size: 2rem;
+  }
+
+  .home-info h1 {
+    font-size: 3.5rem;
+  }
+
+  .home-info h3 {
+    font-size: 1.8rem;
+  }
+
+  .img-box {
+    width: 22rem;
+    height: 22rem;
+    min-width: 120px;
+    min-height: 120px;
+  }
+
+  .tab-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-box.skills {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+
+  .tab-item {
+    padding: 1.5rem;
+  }
+
+  .tab-item h4 {
+    font-size: 1.8rem;
+  }
+
+  .pagination-arrow {
+    font-size: 3rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+@media screen and (max-height: 667px) {
+  .home,
+  .about {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .resume,
+  .portfolio {
+    padding-bottom: 18rem;
+  }
+
+  .contact {
+    padding-bottom: 12rem;
+  }
+}
