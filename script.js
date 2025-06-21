@@ -173,3 +173,49 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const messageDiv = document.getElementById('formMessage');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    messageDiv.style.display = 'none';
+    
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            form.reset();
+            showMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        showMessage('Oops! Something went wrong. Please try again later.', 'error');
+        console.error('Error:', error);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    }
+    
+    function showMessage(text, type) {
+        messageDiv.textContent = text;
+        messageDiv.style.color = type === 'success' ? '#0ef' : '#ff5555';
+        messageDiv.style.display = 'block';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    }
+});

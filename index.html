@@ -485,19 +485,20 @@
            <section class="section contact active">
             <h2 class="title">Contact</h2>
             <div class="contact-wrapper">
-               <form action="" class="contact-form">
-                <h3>Let's Work Together!</h3>
-                <div class="field-box">
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="email" placeholder="Email Address" required>
-                    <textarea name="" id="" placeholder="Your Message" required></textarea>
-                </div>
-                <div class="contact-btn">
-                    <button type="submit" class="btn">Send Message</button>
-                </div>
-               </form> 
+             <form id="contactForm" class="contact-form" action="https://formspree.io/f/meoklvyo" method="POST">
+            <h3>Let's Work Together!</h3>
+            <div class="field-box">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
             </div>
-           </section>
+            <div class="contact-btn">
+                <button type="submit" class="btn">Send Message</button>
+            </div>
+            <div id="formMessage" style="display: none; margin-top: 2rem; font-size: 1.6rem;"></div>
+            </form>
+           </div>
+          </section>
 
        
 
