@@ -15,19 +15,31 @@ const paginationLeft = document.getElementById('paginationLeft');
 const INITIAL_DELAY_MS = 4000;      // Initial 4 seconds delay on page load
 const CUBE_ROTATION_DURATION_MS = 2000;  // Cube rotation animation duration
 
+// Function to get current active section index
+function getActiveSectionIndex() {
+  const activeSection = document.querySelector('.section.active');
+  return Array.from(sections).indexOf(activeSection);
+}
+
 // Function to update pagination arrow visibility based on active section
 function updatePaginationArrows() {
-  const activeSection = document.querySelector('.section.active');
+  const activeIndex = getActiveSectionIndex();
   
-  if (activeSection === sections[0]) { // Home section
+  if (activeIndex === 0) { // Home section
     paginationRight.style.display = 'block';
-    paginationLeft.style.display = 'none';
-  } else if (activeSection === sections[4]) { // Contact section
-    paginationRight.style.display = 'none';
     paginationLeft.style.display = 'block';
-  } else { // Other sections: hide both arrows
-    paginationRight.style.display = 'none';
-    paginationLeft.style.display = 'none';
+    paginationRight.innerHTML = '<i class="bx bx-chevron-right"></i>';
+    paginationLeft.innerHTML = '<i class="bx bx-chevron-left"></i>';
+  } else if (activeIndex === sections.length - 1) { // Contact section
+    paginationRight.style.display = 'block';
+    paginationLeft.style.display = 'block';
+    paginationRight.innerHTML = '<i class="bx bx-chevron-right"></i>';
+    paginationLeft.innerHTML = '<i class="bx bx-chevron-left"></i>';
+  } else { // Middle sections (about, resume, portfolio)
+    paginationRight.style.display = 'block';
+    paginationLeft.style.display = 'block';
+    paginationRight.innerHTML = '<i class="bx bx-chevron-right"></i>';
+    paginationLeft.innerHTML = '<i class="bx bx-chevron-left"></i>';
   }
 }
 
@@ -50,6 +62,20 @@ window.addEventListener('load', () => {
   hidePaginationArrows();
   delayedArrowUpdate(INITIAL_DELAY_MS);
 });
+
+// Function to navigate to next section
+function goToNextSection() {
+  const activeIndex = getActiveSectionIndex();
+  const nextIndex = (activeIndex + 1) % sections.length;
+  navs[nextIndex].click();
+}
+
+// Function to navigate to previous section
+function goToPrevSection() {
+  const activeIndex = getActiveSectionIndex();
+  const prevIndex = (activeIndex - 1 + sections.length) % sections.length;
+  navs[prevIndex].click();
+}
 
 // Navbar click handling and cube rotation with section activation
 navs.forEach((nav, idx) => {
@@ -79,7 +105,7 @@ navs.forEach((nav, idx) => {
   });
 });
 
-// Resume tabs handling (unchanged)
+// Resume tabs handling
 resumeLists.forEach((list, idx) => {
   list.addEventListener('click', () => {
     document.querySelector('.resume-list.active').classList.remove('active');
@@ -90,7 +116,7 @@ resumeLists.forEach((list, idx) => {
   });
 });
 
-// Portfolio tabs handling (unchanged)
+// Portfolio tabs handling
 portfolioLists.forEach((list, idx) => {
   list.addEventListener('click', () => {
     document.querySelector('.portfolio-list.active').classList.remove('active');
@@ -121,43 +147,29 @@ document.getElementById('goToContact').addEventListener('click', function (e) {
   delayedArrowUpdate();
 });
 
-// Pagination arrow: go from Home to Contact
+// Pagination arrow: go to next section
 paginationRight.addEventListener('click', e => {
   e.preventDefault();
-
-  navs[0].classList.remove('active');
-  navs[4].classList.add('active');
-
-  sections[0].classList.remove('active');
-  sections[4].classList.add('active');
-  sections[4].classList.add('action-contact');
-
-  cube.style.transform = `rotateY(${4 * -90}deg)`;
-
-  // Hide arrows immediately and show after rotation
-  hidePaginationArrows();
-  delayedArrowUpdate();
+  goToNextSection();
 });
 
-// Pagination arrow: go from Contact to Home
+// Pagination arrow: go to previous section
 paginationLeft.addEventListener('click', e => {
   e.preventDefault();
-
-  navs[4].classList.remove('active');
-  navs[0].classList.add('active');
-
-  sections[4].classList.remove('active');
-  sections[4].classList.remove('action-contact');
-  sections[0].classList.add('active');
-
-  cube.style.transform = `rotateY(0deg)`;
-
-  // Hide arrows immediately and show after rotation
-  hidePaginationArrows();
-  delayedArrowUpdate();
+  goToPrevSection();
 });
 
-// Hide Contact section on page reload with delay (unchanged)
+// Hide Contact section on page reload with delay
 setTimeout(() => {
   sections[4].classList.remove('active');
 }, 1500);
+
+// Keyboard navigation support
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') {
+    goToNextSection();
+  } else if (e.key === 'ArrowLeft') {
+    goToPrevSection();
+  }
+});
+
