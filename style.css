@@ -1097,3 +1097,21 @@ a:hover .tooltip,
     min-height: 30px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .nav-list li {
+    font-size: 3.2rem; /* Increased from 2.2rem */
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .nav-list li {
+    font-size: 3rem; /* Increased from 2rem */
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .nav-list li {
+    font-size: 2.8rem; /* Increased from 1.8rem */
+  }
+}
